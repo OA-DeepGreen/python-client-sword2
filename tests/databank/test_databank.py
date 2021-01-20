@@ -361,7 +361,7 @@ class TestConnection(TestController):
         receipt = conn.get_deposit_receipt(receipt.location)
         
         # now do the replace
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -383,7 +383,7 @@ class TestConnection(TestController):
         receipt = conn.get_deposit_receipt(receipt.location)
         
         # now do the replace
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -796,7 +796,7 @@ class TestConnection(TestController):
         col = conn.sd.workspaces[0][1][0]
         e = Entry(title="An entry only deposit", id="asidjasidj", dcterms_abstract="abstract", dcterms_identifier="http://whatever/")
         receipt = conn.create(col_iri = col.href, metadata_entry = e)
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -879,7 +879,7 @@ class TestConnection(TestController):
         col = conn.sd.workspaces[0][1][0]
         e = Entry(title="An entry only deposit", id="asidjasidj", dcterms_abstract="abstract", dcterms_identifier="http://whatever/")
         receipt = conn.create(col_iri = col.href, metadata_entry = e)
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -896,7 +896,7 @@ class TestConnection(TestController):
         col = conn.sd.workspaces[0][1][0]
         e = Entry(title="An entry only deposit", id="asidjasidj", dcterms_abstract="abstract", dcterms_identifier="http://whatever/")
         receipt = conn.create(col_iri = col.href, metadata_entry = e)
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,

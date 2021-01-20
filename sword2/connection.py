@@ -191,7 +191,7 @@ Loading in a locally held Service Document:
     
 >>> conn = Connection(....)
 
->>> with open("service_doc.xml", "r") as f:
+>>> with open("service_doc.xml", "rb") as f:
 ...     conn.load_service_document(f.read())
 
          
@@ -257,6 +257,7 @@ Loading in a locally held Service Document:
         
         `self.raise_except` can be altered at any time to affect this methods behaviour."""
         if self.raise_except:
+            raise Exception('Connection')
             raise cls(resp, content)
         else:
             # content type can contain both the mimetype and the charset (e.g. text/xml; charset=utf-8)
@@ -790,7 +791,7 @@ eg:
     
     >>> conn.create(col_iri = collection_iri,
     ...                      metadata_entry = entry,
-    ...                      payload = open("foo.zip", "r"),
+    ...                      payload = open("foo.zip", "rb"),
     ...                      mimetype =  
                 .... and so on
 
@@ -1145,7 +1146,7 @@ eg:
     
     >>> conn.add_new_item_to_container(se_iri = se_iri,
     ...                      metadata_entry = entry,
-    ...                      payload = open("foo.zip", "r"),
+    ...                      payload = open("foo.zip", "rb"),
     ...                      mimetype =  
                 .... and so on
 

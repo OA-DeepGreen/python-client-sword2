@@ -21,7 +21,7 @@ class TestScale(TestController):
         receipt = conn.get_deposit_receipt(receipt.location)
         
         # now do the replace
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
