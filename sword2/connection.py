@@ -21,7 +21,7 @@ from .error_document import Error_Document
 from .statement import Atom_Sword_Statement, Ore_Sword_Statement
 from .exceptions import *
 
-from .compatible_libs import etree
+from lxml import etree
 
 # import httplib2
 from . import http_layer
@@ -301,7 +301,7 @@ Loading in a locally held Service Document:
             conn_l.error("You are unauthorised (401) to access this document on the server. Check your username/password credentials and your 'On Behalf Of'")
             return self._return_error_or_exception(NotAuthorised, resp, content)
         elif resp['status'] == 403:
-            conn_l.error("You are Forbidden (401) to POST to '%s'. Check your username/password credentials and your 'On Behalf Of'")
+            conn_l.error("You are Forbidden (403) to POST to '%s'. Check your username/password credentials and your 'On Behalf Of'")
             return self._return_error_or_exception(Forbidden, resp, content)
         elif resp['status'] == 406:
             conn_l.error("Cannot negotiate for desired format/packaging on '%s'.")
@@ -622,7 +622,9 @@ Loading in a locally held Service Document:
                 if d.parsed:
                     conn_l.info("Server response included a Deposit Receipt. Caching a copy in .resources['%s']" % d.edit)
                 d.response_headers = dict(resp)
-                d.location = location
+                if location is not None:
+                    d.location = location
+                    d.edit = location
                 d.code = 201
                 self._cache_deposit_receipt(d)
                 return d

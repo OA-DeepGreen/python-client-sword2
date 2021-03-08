@@ -21,17 +21,19 @@ The python client tries to use any suitable ElementTree library implementation (
 
 Installation:
 
-python setup.py install
+```shell
+$ pip install .
+```
 
 (use of a virtualenv is recommended)
 
 Software links:
 
-Usage documentation: http://bitbucket.org/beno/python-sword2/wiki/Home 
+Usage documentation: https://github.com/swordapp/python-client-sword2/wiki 
 
 API documentation:   http://packages.python.org/sword2/
 
-Repository:          http://bitbucket.org/beno/python-sword2
+Repository:          https://github.com/swordapp/python-client-sword2
 
-Issue-tracker:       http://bitbucket.org/beno/python-sword2/issues
+Issue-tracker:       https://github.com/swordapp/python-client-sword2/issues
 

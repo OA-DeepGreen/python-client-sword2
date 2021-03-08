@@ -15,7 +15,7 @@ d_l = logging.getLogger(__name__)
 
 from .atom_objects import Category
 
-from .compatible_libs import etree
+from lxml import etree
 from .utils import NS, get_text
 
 class Deposit_Receipt(object):
@@ -141,7 +141,7 @@ Availible attributes:
             except Exception as e:
                 d_l.error("Was not able to parse the deposit receipt as XML.")
                 return
-        
+
         elif dom != None:
             self.dom = dom
             self.parsed = True
@@ -264,7 +264,7 @@ Availible attributes:
             for k,v in e.attrib.items():
                 if k != "rel":
                     attribs[k] = v
-            if rel in self.links: 
+            if rel in self.links:
                 self.links[rel].append(attribs)
             else:
                 self.links[rel] = [attribs]            
