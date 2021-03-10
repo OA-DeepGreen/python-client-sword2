@@ -15,6 +15,7 @@ for the things they logically handle.
 """
 import json
 
+from . import Category
 from .sword2_logging import logging
 from .implementation_info import __version__
 
