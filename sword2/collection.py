@@ -15,7 +15,7 @@ for the things they logically handle.
 """
 import json
 
-from . import Category
+from .atom_objects import Category
 from .sword2_logging import logging
 coll_l = logging.getLogger(__name__)
 

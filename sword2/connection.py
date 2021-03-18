@@ -12,7 +12,7 @@ about the SWORD2 AtomPub profile.
 from .sword2_logging import logging
 conn_l = logging.getLogger(__name__)
 
-from .utils import Timer, NS, get_md5, create_multipart_related
+from .utils import Timer, get_md5, create_multipart_related
 
 from .transaction_history import Transaction_History
 from .service_document import ServiceDocument
