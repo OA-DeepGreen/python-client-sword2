@@ -1,6 +1,5 @@
 from datetime import datetime
-from .utils import NS, get_text
-from .atom_objects import Category
+from .utils import NS
 from .deposit_receipt import Deposit_Receipt
 from .sword2_logging import logging
 from lxml import etree

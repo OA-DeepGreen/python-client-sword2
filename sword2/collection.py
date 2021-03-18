@@ -17,16 +17,9 @@ import json
 
 from . import Category
 from .sword2_logging import logging
-from .implementation_info import __version__
-
 coll_l = logging.getLogger(__name__)
 
-from lxml import etree
 from .utils import NS, get_text
-
-from deposit_receipt import Deposit_Receipt
-
-from datetime import datetime
 
 
 class SDCollection(object):

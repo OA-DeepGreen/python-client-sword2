@@ -17,7 +17,7 @@ from .implementation_info import __version__
 coll_l = logging.getLogger(__name__)
 
 
-from .utils import NS, get_text
+from .utils import NS
 
 
 class Category(object):

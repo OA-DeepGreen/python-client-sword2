@@ -16,7 +16,7 @@ d_l = logging.getLogger(__name__)
 from .atom_objects import Category
 
 from lxml import etree
-from .utils import NS, get_text
+from .utils import NS
 
 class Deposit_Receipt(object):
     def __init__(self, xml_deposit_receipt=None, dom=None, response_headers={}, location=None, code=0):
