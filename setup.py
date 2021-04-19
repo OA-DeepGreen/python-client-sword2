@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
-import sys, os
 
-version = '0.2.1'
+version = '0.2.1-p3'
 
 setup(
     name='sword2',
@@ -43,11 +42,5 @@ SWORD v2 python client""",
     install_requires=[
         "httplib2",
         "lxml",
-    ],
-    # Following left in as a memory aid for later-
-    #entry_points="""
-    #    # -*- Entry points: -*-
-    #    [console_scripts]
-    #    cmd=module.path:func_name
-    #""",
+    ]
 )
