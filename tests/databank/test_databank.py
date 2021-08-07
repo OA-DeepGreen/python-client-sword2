@@ -1,7 +1,7 @@
 import uuid
 from . import TestController
 from sword2 import Connection, Entry, Error_Document, Atom_Sword_Statement, Ore_Sword_Statement
-from sword2.compatible_libs import etree
+from lxml import etree
 
 PACKAGE = "tests/databank/example.zip"
 PACKAGE_MIME = "application/zip"
@@ -198,7 +198,7 @@ class TestConnection(TestController):
         assert new_receipt.parsed == True
         assert new_receipt.valid == True
         
-        print new_receipt.to_xml()
+        print(new_receipt.to_xml())
         
         # Here are some more things we can know about the receipt
         # 1 - the links will all contain the suggested identifier
@@ -207,7 +207,7 @@ class TestConnection(TestController):
         # 4 - the DC metadata will be reflected back at us
         # 5 - the atom metadata will be populated in some way
         
-        for rel, links in new_receipt.links.iteritems():
+        for rel, links in new_receipt.links.items():
             for link in links:
                 assert suggested_id in link['href']
                 assert col.title in link['href']
@@ -361,7 +361,7 @@ class TestConnection(TestController):
         receipt = conn.get_deposit_receipt(receipt.location)
         
         # now do the replace
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -383,7 +383,7 @@ class TestConnection(TestController):
         receipt = conn.get_deposit_receipt(receipt.location)
         
         # now do the replace
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -796,7 +796,7 @@ class TestConnection(TestController):
         col = conn.sd.workspaces[0][1][0]
         e = Entry(title="An entry only deposit", id="asidjasidj", dcterms_abstract="abstract", dcterms_identifier="http://whatever/")
         receipt = conn.create(col_iri = col.href, metadata_entry = e)
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -841,7 +841,7 @@ class TestConnection(TestController):
         assert len(statement.states) == 1
         assert statement.states[0][0] == "http://databank.ox.ac.uk/state/ZipFileAdded"
         
-        print etree.tostring(statement.dom, pretty_print=True)
+        print(etree.tostring(statement.dom, pretty_print=True))
         
         # check the metadata
         md_count = 0
@@ -859,7 +859,7 @@ class TestConnection(TestController):
                         assert element.attrib.get(RDF + "resource") == "http://whatever/"
                         md_count += 1
                 
-        print "Metadata Count: " + str(md_count)
+        print("Metadata Count: " + str(md_count))
         assert md_count == 3
 
     def test_34_check_metadata_only_state(self):
@@ -879,7 +879,7 @@ class TestConnection(TestController):
         col = conn.sd.workspaces[0][1][0]
         e = Entry(title="An entry only deposit", id="asidjasidj", dcterms_abstract="abstract", dcterms_identifier="http://whatever/")
         receipt = conn.create(col_iri = col.href, metadata_entry = e)
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,
@@ -896,7 +896,7 @@ class TestConnection(TestController):
         col = conn.sd.workspaces[0][1][0]
         e = Entry(title="An entry only deposit", id="asidjasidj", dcterms_abstract="abstract", dcterms_identifier="http://whatever/")
         receipt = conn.create(col_iri = col.href, metadata_entry = e)
-        with open(PACKAGE) as pkg:
+        with open(PACKAGE, 'rb') as pkg:
             new_receipt = conn.update(dr = receipt,
                             payload=pkg,
                             mimetype=PACKAGE_MIME,

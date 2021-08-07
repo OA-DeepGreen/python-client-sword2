@@ -5,7 +5,7 @@
 Utility methods used within the module
 """
 
-from sword2_logging import logging
+from .sword2_logging import logging
 utils_l = logging.getLogger(__name__)
 
 from time import time
@@ -158,7 +158,7 @@ class Timer(object):
         for name in args:
             if name in self.counts:
                 duration = st_time - self.counts[name]
-                if not self.duration.has_key(name):
+                if name not in self.duration:
                     self.duration[name] = []
                 self.duration[name].append(duration)
                 r.append((len(self.duration[name]) - 1, duration))
@@ -188,7 +188,7 @@ def create_multipart_related(payloads):
     """
     # Generate random boundary code
     # TODO check that it does not occur in the payload data
-    bhash = md5(datetime.now().isoformat()).hexdigest()    # eg 'd8bb3ea6f4e0a4b4682be0cfb4e0a24e'
+    bhash = md5('datetime.now().isoformat()'.encode('utf-8')).hexdigest()    # eg 'd8bb3ea6f4e0a4b4682be0cfb4e0a24e'
     BOUNDARY = '===========%s_$' % bhash
     CRLF = '\r\n'   # As some servers might barf without this.
     body = []
@@ -204,26 +204,26 @@ def create_multipart_related(payloads):
         else:
             body.append('Content-Disposition: attachment; name="%(key)s"' % (payload))
         
-        if payload.has_key("headers"):
-            for f,v in payload['headers'].iteritems():
-                body.append("%s: %s" % (f, v))     # TODO force ASCII?
+        if "headers" in payload:
+            for f, v in payload['headers'].items():
+                body.append("%s: %s" % (f, v))
         
         body.append('MIME-Version: 1.0')
         if payload['key'] == 'payload':
             body.append('Content-Transfer-Encoding: base64')
             body.append('')
             if hasattr(payload['data'], 'read'):
-                body.append(b64encode(payload['data'].read()))
+                body.append(b64encode(payload['data'].read()).decode('ascii'))
             else:
-                body.append(b64encode(payload['data']))
+                body.append(b64encode(payload['data'].encode('ascii')).decode('ascii'))
         else:
             body.append('')
             if hasattr(payload['data'], 'read'):
-                body.append(b64encode(payload['data'].read()))
+                body.append(b64encode(payload['data'].read()).decode('ascii'))
             else:
-                body.append(b64encode(payload['data']))
+                body.append(b64encode(payload['data'].encode('ascii')).decode('ascii'))
     body.append('--' + BOUNDARY + '--')
     body.append('')
-    body_bytes = CRLF.join(body)
+    body_bytes = CRLF.join(body).encode('utf-8')
     content_type = 'multipart/related; boundary="%s"' % BOUNDARY
     return content_type, body_bytes
